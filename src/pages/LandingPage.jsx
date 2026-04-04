@@ -1,5 +1,5 @@
 function LandingPage() {
-  return <div></div>;
+  return <div>hello whats uo</div>;
 }
 
 export default LandingPage;

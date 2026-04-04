@@ -1,18 +1,15 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import "tailwindcss";
 :root {
   --primary-colour: #6813b3;
   --hover-color: #bca6e2;
   --input-bg: #f4e6ff;
 }
 
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
 
-body {
+
+/* body {
   width: 100vw;
   min-height: 100vh;
   overflow: auto;
@@ -23,7 +20,6 @@ body {
 
 .container {
   width: 100%;
-  /* max-width: 900px; */
   margin: 0 auto;
   padding: 0 5%;
 }
@@ -63,7 +59,6 @@ h1 {
   text-align: left;
 }
 
-/*Password hint line*/
 .field-hint {
   font-size: 0.75rem;
   color: #555;
@@ -72,7 +67,7 @@ h1 {
 
 .form-row {
   display: flex;
-  flex-direction: row; /* desktop */
+  flex-direction: row; 
   gap: 1rem;
   width: 100%;
   margin-bottom: 1rem;
@@ -155,8 +150,6 @@ h1 {
 .forgot-password:hover {
   text-decoration: underline;
 }
-
-/*buttons*/
 .btn-get-started {
   color: white;
   background-color: var(--primary-colour);
@@ -208,7 +201,7 @@ h1 {
 
 /* media queries */
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   h1 {
     font-size: 32px;
   }
@@ -229,7 +222,6 @@ h1 {
     font-size: 0.85rem;
   }
 
-  /* hide desktop button */
   .desktop-btn {
     display: none;
   }
@@ -256,4 +248,4 @@ h1 {
     font-size: 14px;
     margin-top: 40px;
   }
-}
+}  */

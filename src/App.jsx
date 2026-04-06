@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Login from "./pages/Login";
 import AppLayout from "./components/Global/AppLayout";
-import LandingPage from "./pages/LandingPage";
-import Signup from "./pages/Signup";
+import LandingPage from "./pages/Landingpage/LandingPage";
+import SigninPage from "./pages/Auth/Signin";
+import SignupPage from "./pages/Auth/Signup";
 import { AppProvider } from "./contexts/AppContext";
 import Dashboard from "./pages/Dashboard/Dashboard"; 
 import Message from "./pages/Dashboard/Message";
@@ -26,14 +26,10 @@ function App() {
         <Route path="/file" element={<File />} /> 
         <Route path="/settings" element={<SettingsPage />} />
       </Route>
-        {/* <Route element={<AppLayout />}>
-          <Route path='home' element={<Home />} />
-          
-          <Route path="dashboard" element={<Dashboard/>}/>
-        </Route> */}
 
-        <Route path='login' element={<Login />} />
-        <Route path='signup' element={<Signup />} />
+
+        <Route path='signin' element={<SigninPage />} />
+        <Route path='signup' element={<SignupPage />} />
       </Routes>
 
     </BrowserRouter>

@@ -8,7 +8,7 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Message from "./pages/Dashboard/Message";
 import File from "./pages/Dashboard/File";
 import { SettingsPage } from "./pages/Dashboard/Settings";
-import Mo from "./pages/Dashboard/Mo";
+import Courses from "./pages/Dashboard/Courses";
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
   
        <Route element={<AppLayout />}>
         <Route path="dashboard" element={<Dashboard />} />
-        <Route path="mo" element={<Mo/>} />
+        <Route path="/courses" element={<Courses/>} />
         {/* <Route path="/tasks" element={<Tasks />} /> */}
         <Route path="/message" element={<Message />} />
         <Route path="/file" element={<File />} /> 

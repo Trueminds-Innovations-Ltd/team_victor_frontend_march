@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import SideNav from "./SideNav";
+import SideNav from "./Side/SideNav";
 import Topbar from "./Topbar";
 
 function AppLayout() {

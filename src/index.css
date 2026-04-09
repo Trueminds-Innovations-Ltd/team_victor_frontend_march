@@ -3,8 +3,12 @@
 :root {
   --primary-colour: #6813b3;
   --primary-colour-dark: #21003d;
+  --font-family: "poppins";
   --hover-color: #bca6e2;
   --input-bg: #f4e6ff;
+}
+body {
+  font-family: var(--font-family);
 }
 
 

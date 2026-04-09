@@ -1,0 +1,147 @@
+export const filters = [
+  "All",
+  "In - Progress",
+  "Completed",
+  "Beginners",
+  "Intermediate",
+  "Advanced",
+];
+
+export const levelStyles = {
+  Beginner: "bg-emerald-100 text-emerald-500",
+  Intermediate: "bg-violet-100 text-violet-500",
+  Advanced: "bg-emerald-100 text-emerald-500",
+};
+
+export const coursesData = [
+  {
+    id: 1,
+    title: "Introduction to Graphic Design",
+    level: "Beginner",
+    image:
+      "/images/g7.png",
+    author: "Alex Morgan",
+    enrolled: "4.8k Enrolled",
+    img: "/images/ep.png",
+    progress: null,
+    button: null,
+    active: true,
+  },
+  {
+    id: 2,
+    title: "Typography Essentials",
+    level: "Intermediate",
+   image:
+      "/images/r6.png",
+    author: "",
+    enrolled: "",
+    progress: "30% Completed",
+    button: "Resume",
+    img: "/images/ep.png",
+    active: false,
+  },
+  {
+    id: 3,
+    title: "Mastering Adobe Illustration",
+    level: "Advanced",
+   image:
+      "/images/g7.png",
+    author: "James Carter",
+    enrolled: "2k Enrolled",
+    progress: null,
+    button: null,
+    img: "/images/ep.png",
+    active: false,
+  },
+  {
+    id: 4,
+    title: "Colour Theory & Psychology",
+    level: "Beginner",
+     image:
+      "/images/g7.png",
+    author: "Sarah Lee",
+    enrolled: "3.1k Enrolled",
+    progress: null,
+    img: "/images/ep.png",
+    button: null,
+    active: false,
+  },
+  {
+    id: 5,
+    title: "Advance Digital Illustration",
+    level: "Intermediate",
+    image:
+      "/images/g8.png",
+    author: "Daniel Kim",
+    enrolled: "2.7k Enrolled",
+    progress: null,
+    button: null,
+    active: false,
+    img: "/images/ep.png",
+  },
+  {
+    id: 6,
+    title: "Photoshop for Beginners",
+    level: "Advanced",
+   image:
+      "/images/g14.png",
+    author: "Emily Stone",
+    enrolled: "5k Enrolled",
+    progress: null,
+    button: null,
+    active: false,
+    img: "/images/ep.png",
+  },
+  {
+    id: 7,
+    title: "Branding & Identity Design",
+    level: "intermediate",
+   image:
+      "/images/g10.png",
+    author: "Emily Stone",
+    enrolled: "5k Enrolled",
+    progress: null,
+    button: null,
+    active: false,
+    img: "/images/ep.png",
+  },
+  {
+    id: 8,
+    title: "social media design",
+    level: "Advanced",
+   image:
+      "/images/g14.png",
+    author: "Emily Stone",
+    enrolled: "5k Enrolled",
+    progress: "40% Completed",
+    button: null,
+    active: false,
+    img: "/images/ep.png",
+  },
+  {
+    id: 9,
+    title: "Layout & Grid System",
+    level: "Beginner",
+   image:
+      "/images/g9.png",
+    author: "Emily Stone",
+    enrolled: "5k Enrolled",
+    progress: null,
+    button: null,
+    active: false,
+    img: "/images/ep.png",
+  },
+  {
+    id: 10,
+    title: "Design Thinking for beginners",
+    level: "Advanced",
+   image:
+      "/images/g14.png",
+    author: "Emily Stone",
+    enrolled: "5k Enrolled",
+    progress: null,
+    button: null,
+    active: false,
+    img: "/images/ep.png",
+  },
+];

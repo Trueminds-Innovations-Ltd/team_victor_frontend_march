@@ -1,21 +1,22 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { useApp } from "../../contexts/AppContext";
 import { CourseCard } from "./CourseCard";
 
-
-// Maps status labels to badge colors
 export default function ContinueWatching() {
   const { continueWatching } = useApp();
+  const MotionLink = motion(Link)
   return (
     <section className="mb-8">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-bold text-gray-900">Continue Watching</h2>
-        <motion.button
+        <MotionLink
+          to="/courses?filter=in-progress"
           whileHover={{ x: 3 }}
           className="text-purple-600 text-sm font-medium flex items-center gap-1 hover:underline"
         >
           View All →
-        </motion.button>
+        </MotionLink>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {continueWatching.map((course, index) => (

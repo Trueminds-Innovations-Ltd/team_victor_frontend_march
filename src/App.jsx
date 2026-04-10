@@ -4,35 +4,34 @@ import LandingPage from "./pages/Landingpage/LandingPage";
 import SigninPage from "./pages/Auth/Signin";
 import SignupPage from "./pages/Auth/Signup";
 import { AppProvider } from "./contexts/AppContext";
-import Dashboard from "./pages/Dashboard/Dashboard"; 
+import Dashboard from "./pages/Dashboard/Dashboard";
 import Message from "./pages/Dashboard/Message";
 import File from "./pages/Dashboard/File";
 import { SettingsPage } from "./pages/Dashboard/Settings";
 import Courses from "./pages/Dashboard/Courses";
+import CourseDetails from "./pages/Dashboard/DashboardDetails/CoursesDetail";
+import ContinueWatching from "./components/Dashboard/ContinueWatching";
 
 function App() {
   return (
     <AppProvider>
-    <BrowserRouter>
-       <Routes>
-        <Route path='/' element={<LandingPage />} />   {/* FIX */}
-        <Route path='landing' element={<LandingPage />} />
-  
-       <Route element={<AppLayout />}>
-        <Route path="dashboard" element={<Dashboard />} />
-        <Route path="/courses" element={<Courses/>} />
-        {/* <Route path="/tasks" element={<Tasks />} /> */}
-        <Route path="/message" element={<Message />} />
-        <Route path="/file" element={<File />} /> 
-        <Route path="/settings" element={<SettingsPage />} />
-      </Route>
-
-
-        <Route path='signin' element={<SigninPage />} />
-        <Route path='signup' element={<SignupPage />} />
-      </Routes>
-
-    </BrowserRouter>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LandingPage />} /> {/* FIX */}
+          <Route path="landing" element={<LandingPage />} />
+          <Route element={<AppLayout />}>
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="/courses" element={<Courses />} />
+            <Route path="/courses/:id" element={<CourseDetails />} />
+            {/* <Route path="/tasks" element={<Tasks />} /> */}
+            <Route path="/message" element={<Message />} />
+            <Route path="/file" element={<File />} />
+            <Route path="/settings" element={<SettingsPage />} />
+          </Route>
+          <Route path="signin" element={<SigninPage />} />
+          <Route path="signup" element={<SignupPage />} />
+        </Routes>
+      </BrowserRouter>
     </AppProvider>
   );
 }

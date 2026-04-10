@@ -1,40 +1,61 @@
-import { useState } from "react";
+import { useMemo } from "react";
 import { motion } from "framer-motion";
-import { filters } from "./CourseData";
-import { coursesData } from "./CourseData";
-import { levelStyles } from "./CourseData";
+import { useSearchParams } from "react-router-dom";
+import { filters, coursesData, levelStyles } from "./CourseData";
+
+const filterMap = {
+  all: "All",
+  inprogress: "In Progress",
+  completed: "Completed",
+  beginner: "Beginner",
+  intermediate: "Intermediate",
+  advanced: "Advanced",
+};
+const filterToSlug = (filter) => {
+  if (filter === "All") return "all";
+  return filter.toLowerCase().replace(/\s+/g, "-");
+};
 
 export default function CourseOverview() {
-  const [activeFilter, setActiveFilter] = useState("All");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const filterFromUrl = searchParams.get("filter") || "all";
+  const activeFilter = filterMap[filterFromUrl] || "All";
+  const handleFilterClick = (filter) => {
+    setSearchParams({ filter: filterToSlug(filter) });
+  };
+  const filteredCourses = useMemo(() => {
+    return coursesData.filter((course) => {
+      if (activeFilter === "All") return true;
 
-  //FILTER LOGIC
-  const filteredCourses = coursesData.filter((course) => {
-    if (activeFilter === "All") return true;
-    if (
-      activeFilter === "Beginner" ||
-      activeFilter === "Intermediate" ||
-      activeFilter === "Advanced"
-    ) {
-      return course.level === activeFilter;
-    }
-    if (activeFilter === "In Progress" || activeFilter === "Completed") {
-      return course.status === activeFilter;
-    }
-    return true;
-  });
+      if (
+        activeFilter === "Beginner" ||
+        activeFilter === "Intermediate" ||
+        activeFilter === "Advanced"
+      ) {
+        return course.level === activeFilter;
+      }
+      if (activeFilter === "In Progress" || activeFilter === "Completed") {
+        return course.status === activeFilter;
+      }
+
+      return true;
+    });
+  }, [activeFilter]);
+
   return (
-    <section className="w-full min-h-screen bg-[#f5f5f7] px-4 py-3">
-      <div className=" w-full">
-        {/* FILTERS */}
-        <div className="mb-6 flex flex-wrap gap-3 w-full">
+    <section className="min-h-screen w-full bg-[#f5f5f7] px-4 py-3">
+      <div className="w-full">
+
+        {/* FILTER BUTTONS */}
+        <div className="mb-6 flex w-full flex-wrap gap-3">
           {filters.map((filter) => (
             <button
               key={filter}
-              onClick={() => setActiveFilter(filter)}
+              onClick={() => handleFilterClick(filter)}
               className={`rounded-full px-4 py-2 text-sm font-medium transition-all ${
                 activeFilter === filter
                   ? "bg-violet-600 text-white"
-                  : "bg-white border border-gray-300 text-gray-600 hover:border-violet-400 hover:text-violet-600"
+                  : "border border-gray-300 bg-white text-gray-600 hover:border-violet-400 hover:text-violet-600"
               }`}
             >
               {filter}
@@ -52,7 +73,6 @@ export default function CourseOverview() {
               transition={{ delay: index * 0.05 }}
               className="overflow-hidden rounded-[12px] border border-[#d9dde4] bg-white shadow-sm"
             >
-              {/* top image */}
               <div className="h-[155px] w-full overflow-hidden">
                 <img
                   src={course.image}
@@ -61,9 +81,8 @@ export default function CourseOverview() {
                 />
               </div>
 
-              {/* content */}
               <div className="flex min-h-[158px] flex-col">
-                <div className="flex-1 border-t border-[#d9dde4] px-5 pt-4 pb-3">
+                <div className="flex-1 border-t border-[#d9dde4] px-5 pb-3 pt-4">
                   <h3 className="text-xl font-bold leading-[1.4] text-[#0F172A]">
                     {course.title}
                   </h3>
@@ -75,7 +94,6 @@ export default function CourseOverview() {
                   </span>
                 </div>
 
-                {/* bottom area */}
                 {course.progress ? (
                   <div className="border-t border-[#d9dde4] px-5 py-4">
                     <div className="flex items-center justify-between gap-3">
@@ -121,9 +139,11 @@ export default function CourseOverview() {
             </motion.div>
           ))}
         </div>
-        {/* EMPTY STATE */}
+
         {filteredCourses.length === 0 && (
-          <p className="text-center mt-10 text-gray-500">No courses found</p>
+          <p className="mt-10 text-center text-gray-500">
+            No courses found
+          </p>
         )}
       </div>
     </section>

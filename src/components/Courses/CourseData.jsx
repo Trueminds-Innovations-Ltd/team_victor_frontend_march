@@ -1,6 +1,6 @@
 export const filters = [
   "All",
-  "In - Progress",
+  "In-Progress",
   "Completed",
   "Beginners",
   "Intermediate",
@@ -26,6 +26,7 @@ export const coursesData = [
     progress: null,
     button: null,
     active: true,
+    status: "In Progress",
   },
   {
     id: 2,
@@ -39,6 +40,7 @@ export const coursesData = [
     button: "Resume",
     img: "/images/ep.png",
     active: false,
+    status: "In Progress",
   },
   {
     id: 3,
@@ -52,6 +54,7 @@ export const coursesData = [
     button: null,
     img: "/images/ep.png",
     active: false,
+    status: "In Progress",
   },
   {
     id: 4,
@@ -65,6 +68,7 @@ export const coursesData = [
     img: "/images/ep.png",
     button: null,
     active: false,
+    status: "In Progress",
   },
   {
     id: 5,
@@ -78,6 +82,7 @@ export const coursesData = [
     button: null,
     active: false,
     img: "/images/ep.png",
+    status: "In Progress",
   },
   {
     id: 6,
@@ -91,6 +96,7 @@ export const coursesData = [
     button: null,
     active: false,
     img: "/images/ep.png",
+    status: "In Progress",
   },
   {
     id: 7,
@@ -104,6 +110,7 @@ export const coursesData = [
     button: null,
     active: false,
     img: "/images/ep.png",
+    status: "In Progress",
   },
   {
     id: 8,
@@ -117,6 +124,7 @@ export const coursesData = [
     button: null,
     active: false,
     img: "/images/ep.png",
+     status: "Completed",
   },
   {
     id: 9,

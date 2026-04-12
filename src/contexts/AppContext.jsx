@@ -1,9 +1,11 @@
 import { createContext, useContext, useState } from "react";
+import { useUser } from "../hooks/useUser";
 
 // Global app state - easy to swap mock data with real API calls later
 const AppContext = createContext(null);
 
 // Mock user data - replace with API call: GET /api/user/profile
+
 const mockUser = {
   name: "Emeka",
   lastName: "Ezekwe",
@@ -128,10 +130,20 @@ export function AppProvider({ children }) {
   const [activeNav, setActiveNav] = useState("home");
   const [searchQuery, setSearchQuery] = useState("");
 
+  const { user } = useUser();
+  console.log("User from useUser hook:", user);
+  const mockUserWithAPI = {
+    ...mockUser,
+    name: user?.name?.split(" ")[0],
+    lastName: user?.name?.split(" ")[1],
+    role: user?.role || mockUser.role,
+    avatar: user?.avatar || mockUser.avatar,
+  };
+
   return (
     <AppContext.Provider
       value={{
-        user: mockUser,
+        user: mockUserWithAPI,
         heroCourse: mockHeroCourse,
         continueWatching: mockContinueWatching,
         exploreCourses: mockExploreCourses,

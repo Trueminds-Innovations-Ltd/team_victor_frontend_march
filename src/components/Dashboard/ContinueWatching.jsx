@@ -5,20 +5,20 @@ import { CourseCard } from "./CourseCard";
 
 export default function ContinueWatching() {
   const { continueWatching } = useApp();
-  const MotionLink = motion(Link)
+  const MotionLink = motion(Link);
   return (
-    <section className="mb-8">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-bold text-gray-900">Continue Watching</h2>
+    <section className='mb-8'>
+      <div className='flex items-center justify-between mb-4'>
+        <h2 className='text-lg font-bold text-gray-900'>Continue Watching</h2>
         <MotionLink
-          to="/courses?filter=in-progress"
+          to='/courses?filter=in-progress'
           whileHover={{ x: 3 }}
-          className="text-purple-600 text-sm font-medium flex items-center gap-1 hover:underline"
+          className='text-purple-600 text-sm font-medium flex items-center gap-1 hover:underline'
         >
           View All →
         </MotionLink>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
         {continueWatching.map((course, index) => (
           <CourseCard key={course.id} course={course} index={index} />
         ))}

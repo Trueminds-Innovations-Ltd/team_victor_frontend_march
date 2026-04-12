@@ -8,7 +8,17 @@ export const useLogin = () => {
   return useMutation({
     mutationFn: login,
 
-    onSuccess: () => {
+    onSuccess: (data) => {
+      const token = data?.token || data?.access_token;
+      console.log("Received token:", token);
+
+      if (!token) {
+        toast.error("Invalid login response");
+        return;
+      }
+
+      localStorage.setItem("truemind_token", token);
+      localStorage.setItem("truemind_user", JSON.stringify(data.user || {}));
       toast.success("Login successful!");
       navigate("/dashboard");
     },

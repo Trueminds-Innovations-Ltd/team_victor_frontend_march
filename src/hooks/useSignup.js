@@ -8,9 +8,18 @@ export const useSignup = () => {
   return useMutation({
     mutationFn: register,
 
-    onSuccess: () => {
-      toast.success("Signup successful!");
-      navigate("/login");
+    onSuccess: (data) => {
+      const token = data?.token;
+
+      if (token) {
+        localStorage.setItem("truemind_token", token);
+
+        toast.success("Signup successful!");
+
+        navigate("/dashboard");
+      } else {
+        toast.error("Signup failed: no token returned");
+      }
     },
 
     onError: () => {

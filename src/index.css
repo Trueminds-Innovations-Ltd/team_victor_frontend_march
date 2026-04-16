@@ -15,7 +15,6 @@ body {
 @layer base {
   input:-webkit-autofill,
   input:-webkit-autofill:hover,
-  /* input:-webkit-autofill:focus, */
   input:-webkit-autofill:active {
     -webkit-box-shadow: 0 0 0 100px #f4e6ff inset !important;
     box-shadow: 0 0 0 1000px #f4e6ff inset !important;

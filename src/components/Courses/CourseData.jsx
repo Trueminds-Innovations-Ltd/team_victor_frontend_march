@@ -5,7 +5,6 @@ export const levelStyles = {
   Intermediate: "bg-violet-100 text-violet-500",
   Advanced: "bg-emerald-100 text-emerald-500",
 };
-
 export const coursesData = [
   {
     id: 1,
@@ -19,19 +18,21 @@ export const coursesData = [
     button: null,
     active: true,
     status: null,
+    role: "Graphic Design"
   },
   {
     id: 2,
     title: "Typography Essentials",
     level: "Intermediate",
     image: "/images/r6.png",
-    author: "",
+    author: "James Carter",
     enrolled: "",
     progress: 30,
     img: "/images/ep.png",
     button: "Resume",
     active: false,
     status: "In Progress",
+     role: "Graphic Design"
   },
   {
     id: 3,
@@ -45,6 +46,7 @@ export const coursesData = [
     button: null,
     active: false,
     status: null,
+     role: "Adobe Tutor"
   },
   {
     id: 4,
@@ -58,6 +60,7 @@ export const coursesData = [
     button: null,
     active: false,
     status: null,
+     role: "Graphic Design"
   },
   {
     id: 5,
@@ -71,6 +74,7 @@ export const coursesData = [
     active: false,
     img: "/images/ep.png",
     status: null,
+     role: "Graphic Design"
   },
   {
     id: 6,
@@ -84,6 +88,7 @@ export const coursesData = [
     active: false,
     img: "/images/ep.png",
     status: "Completed",
+     role: "Photoshop Tutor"
   },
   {
     id: 7,
@@ -97,6 +102,7 @@ export const coursesData = [
     active: false,
     img: "/images/ep.png",
     status: "In Progress",
+     role: "Motion Design"
   },
   {
     id: 8,
@@ -110,6 +116,7 @@ export const coursesData = [
     active: false,
     img: "/images/ep.png",
     status: "In Progress",
+     role: "Graphic Design"
   },
   {
     id: 9,
@@ -123,6 +130,7 @@ export const coursesData = [
     active: false,
     img: "/images/ep.png",
     status: null,
+     role: "Graphic Design"
   },
   {
     id: 10,
@@ -136,5 +144,6 @@ export const coursesData = [
     active: false,
     img: "/images/ep.png",
     status: "Completed",
+     role: "Graphic Design"
   },
 ];

@@ -15,7 +15,7 @@ export function CourseCard({ course, index }) {
   
   return (
     <MotionLink
-      to={`/courses/${course.id}`} // 🔥 THIS IS YOUR PARAM
+      to={`/courses/${course.id}`} 
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: index * 0.1 }}

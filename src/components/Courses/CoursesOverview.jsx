@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { motion } from "framer-motion";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
 import { filters, coursesData, levelStyles } from "./CourseData";
 
 const filterMap = {
@@ -17,6 +17,8 @@ const filterToSlug = (filter) => {
   if (filter === "All") return "all";
   return filter.toLowerCase().replace(/\s+/g, "-");
 };
+
+const MotionLink = motion(Link)
 
 export default function CourseOverview() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -63,7 +65,8 @@ export default function CourseOverview() {
         {/* GRID */}
         <div className='grid grid-cols-1 gap-7 sm:grid-cols-2 xl:grid-cols-3'>
           {filteredCourses.map((course, index) => (
-            <motion.div
+            <MotionLink
+              to={`/courses/${course.id}`}
               key={course.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -115,7 +118,7 @@ export default function CourseOverview() {
                   </div>
                 )}
               </div>
-            </motion.div>
+            </MotionLink>
           ))}
         </div>
 

@@ -1,11 +1,20 @@
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, X, Mail, Phone, Eye, EyeOff, Info, ChevronDown } from "lucide-react";
+import {
+  ArrowLeft,
+  X,
+  Mail,
+  Phone,
+  Eye,
+  EyeOff,
+  Info,
+  ChevronDown,
+} from "lucide-react";
 import { useSignup } from "../../hooks/useSignup";
 
 const input = (hasError) =>
-  `w-full bg-[#f4e6ff]  rounded-[0.3rem] px-5 py-3 pr-12 text-[15px] font-medium text-[#0F172A] placeholder:text-[#BCA6E2] focus:bg-white outline-none border-2 ${
+  `w-full bg-[#f4e6ff] rounded-[0.3rem] px-5 py-3 pr-12 text-[15px] font-medium text-[#0F172A] placeholder:text-[#BCA6E2] outline-none border-2 transition-colors ${
     hasError ? "border-red-400" : "border-transparent focus:border-purple-400"
   }`;
 
@@ -16,13 +25,60 @@ export default function Signup() {
     getValues,
     setError,
     resetField,
+    setValue,
+    watch,
+    trigger,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      firstname: "",
+      lastname: "",
+      email: "",
+      tel: "",
+      password: "",
+      confirmPassword: "",
+      track: "",
+    },
+  });
+
   const [showPass, setShowPass] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const { mutate, isPending } = useSignup();
   const navigate = useNavigate();
+
+  const dropdownRef = useRef(null);
+  const selectedTrack = watch("track");
+
+  const options = [
+    { label: "Frontend", value: "frontend" },
+    { label: "Backend", value: "backend" },
+    { label: "Design", value: "design" },
+  ];
+
+  const selectedOption = options.find((item) => item.value === selectedTrack);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!dropdownRef.current?.contains(event.target)) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const onSelectTrack = async (value) => {
+    setValue("track", value, {
+      shouldDirty: true,
+      shouldTouch: true,
+      shouldValidate: true,
+    });
+    setOpen(false);
+    await trigger("track");
+  };
 
   const onSubmit = (data) => {
     if (data.password.length < 8) {
@@ -44,12 +100,13 @@ export default function Signup() {
       return;
     }
 
-    // Prepare payload for API
     const payload = {
       name: `${data.firstname} ${data.lastname}`,
       email: data.email,
       password: data.password,
       password_confirmation: data.confirmPassword,
+      track: data.track,
+      phone: data.tel,
     };
 
     mutate(payload);
@@ -57,63 +114,71 @@ export default function Signup() {
   };
 
   return (
-    <div className='min-h-screen bg-white px-8 md:px-14 py-7 max-w-4xl mx-auto'>
-      {/* Header */}
-      <div className='flex items-center justify-between mb-10'>
+    <div className="mx-auto min-h-screen max-w-4xl bg-white px-8 py-7 md:px-14">
+      <div className="mb-10 flex items-center justify-between">
         <button
-          type='button'
+          type="button"
           onClick={() => navigate("/")}
-          className='p-2 rounded-full cursor-pointer hover:bg-purple-50 text-gray-700'
+          className="cursor-pointer rounded-full p-2 text-gray-700 hover:bg-purple-50"
         >
           <ArrowLeft size={22} strokeWidth={2.5} />
         </button>
-        <span className='text-xl font-bold text-gray-900'>Logo</span>
+
+        <span className="text-xl font-bold text-gray-900">Logo</span>
+
         <button
-          type='button'
+          type="button"
           onClick={() => navigate("/")}
-          className='p-2 rounded-full hover:bg-purple-50 cursor-pointer text-gray-700'
+          className="cursor-pointer rounded-full p-2 text-gray-700 hover:bg-purple-50"
         >
           <X size={20} strokeWidth={2.5} />
         </button>
       </div>
 
-      <h1 className='text-xl md:text-2xl font-bold text-[#5B21B6] leading-tight mb-10 tracking-tight'>
+      <h1 className="mb-10 text-xl font-bold leading-tight tracking-tight text-[#5B21B6] md:text-2xl">
         Start your learning journey
       </h1>
 
-      <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-5'>
-        {/* Row 1 */}
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-10'>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
           <div>
             <input
-              type='text'
+              type="text"
               disabled={isPending}
-              placeholder='First name *'
+              placeholder="First name *"
               className={input(errors.firstname)}
               {...register("firstname", { required: "First name is required" })}
             />
-            {errors.firstname && <p className='text-red-500 text-xs mt-1 px-1'>{errors.firstname.message}</p>}
+            {errors.firstname && (
+              <p className="mt-1 px-1 text-xs text-red-500">
+                {errors.firstname.message}
+              </p>
+            )}
           </div>
+
           <div>
             <input
-              type='text'
+              type="text"
               disabled={isPending}
-              placeholder='Last name *'
+              placeholder="Last name *"
               className={input(errors.lastname)}
               {...register("lastname", { required: "Last name is required" })}
             />
-            {errors.lastname && <p className='text-red-500 text-xs mt-1 px-1'>{errors.lastname.message}</p>}
+            {errors.lastname && (
+              <p className="mt-1 px-1 text-xs text-red-500">
+                {errors.lastname.message}
+              </p>
+            )}
           </div>
         </div>
 
-        {/* Row 2 */}
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-10'>
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
           <div>
-            <div className='relative'>
+            <div className="relative">
               <input
-                type='email'
+                type="email"
                 disabled={isPending}
-                placeholder='Email address *'
+                placeholder="Email address *"
                 className={input(errors.email)}
                 {...register("email", {
                   required: "Email is required",
@@ -125,36 +190,45 @@ export default function Signup() {
               />
               <Mail
                 size={18}
-                className='absolute right-4 top-1/2 -translate-y-1/2 text-purple-400 pointer-events-none'
+                className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-purple-400"
               />
             </div>
-            {errors.email && <p className='text-red-500 text-xs mt-1 px-1'>{errors.email.message}</p>}
+            {errors.email && (
+              <p className="mt-1 px-1 text-xs text-red-500">
+                {errors.email.message}
+              </p>
+            )}
           </div>
+
           <div>
-            <div className='relative'>
+            <div className="relative">
               <input
-                type='tel'
+                type="tel"
                 disabled={isPending}
-                placeholder='Phone number *'
+                placeholder="Phone number *"
                 className={input(errors.tel)}
                 {...register("tel", { required: "Phone number is required" })}
               />
               <Phone
                 size={18}
-                className='absolute right-4 top-1/2 -translate-y-1/2 text-purple-400 pointer-events-none'
+                className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-purple-400"
               />
             </div>
-            {errors.tel && <p className='text-red-500 text-xs mt-1 px-1'>{errors.tel.message}</p>}
+            {errors.tel && (
+              <p className="mt-1 px-1 text-xs text-red-500">
+                {errors.tel.message}
+              </p>
+            )}
           </div>
         </div>
 
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-10'>
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
           <div>
-            <div className='relative'>
+            <div className="relative">
               <input
                 type={showPass ? "text" : "password"}
                 disabled={isPending}
-                placeholder='Password *'
+                placeholder="Password *"
                 className={input(errors.password)}
                 {...register("password", {
                   required: "Password is required",
@@ -165,75 +239,121 @@ export default function Signup() {
                 })}
               />
               <button
-                type='button'
+                type="button"
                 onClick={() => setShowPass((p) => !p)}
-                className='absolute right-4 top-1/2 -translate-y-1/2 text-purple-400'
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-purple-400"
               >
                 {showPass ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
             </div>
+
             {errors.password ? (
-              <p className='text-red-500 text-xs mt-1 px-1'>{errors.password.message}</p>
+              <p className="mt-1 px-1 text-xs text-red-500">
+                {errors.password.message}
+              </p>
             ) : (
-              <p className='flex items-center gap-1 text-[#0F172A] text-xs mt-1 px-1'>
-                <Info size={13} className='text-[#6813B3]' /> At least 8 characters
+              <p className="mt-1 flex items-center gap-1 px-1 text-xs text-[#0F172A]">
+                <Info size={13} className="text-[#6813B3]" />
+                At least 8 characters
               </p>
             )}
           </div>
+
           <div>
-            <div className='relative'>
+            <div className="relative">
               <input
                 type={showConfirm ? "text" : "password"}
                 disabled={isPending}
-                placeholder='Confirm password *'
+                placeholder="Confirm password *"
                 className={input(errors.confirmPassword)}
                 {...register("confirmPassword", {
                   required: "Please confirm your password",
-                  validate: (v) => v === getValues("password") || "Passwords don't match",
+                  validate: (v) =>
+                    v === getValues("password") || "Passwords don't match",
                 })}
               />
               <button
-                type='button'
+                type="button"
                 onClick={() => setShowConfirm((p) => !p)}
-                className='absolute right-4 top-1/2 -translate-y-1/2 text-purple-400'
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-purple-400"
               >
                 {showConfirm ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
             </div>
+
             {errors.confirmPassword && (
-              <p className='text-red-500 text-xs mt-1 px-1'>{errors.confirmPassword.message}</p>
+              <p className="mt-1 px-1 text-xs text-red-500">
+                {errors.confirmPassword.message}
+              </p>
             )}
           </div>
         </div>
 
-        <div className='relative'>
-          <select
-            defaultValue=''
-            className={`${input(errors.track)} appearance-none cursor-pointer bg-[#f4e6ff] hover:bg-[#f4e6ff]`}
+        <div className="relative" ref={dropdownRef}>
+          <input
+            type="hidden"
             {...register("track", {
               required: "Please select a learning track",
             })}
-          >
-            <option value='' disabled hidden>
-              Select Learning Track
-            </option>
-            <option value='frontend'>Frontend</option>
-            <option value='backend'>Backend</option>
-            <option value='design'>Design</option>
-          </select>
-          <ChevronDown
-            size={18}
-            className='absolute right-4 top-1/2 -translate-y-1/2 text-purple-400 pointer-events-none'
           />
-          {errors.track && <p className='text-red-500 text-xs mt-1 px-1'>{errors.track.message}</p>}
+
+          <button
+            type="button"
+            disabled={isPending}
+            onClick={() => setOpen((prev) => !prev)}
+            className={`flex w-full items-center justify-between rounded-[0.3rem] border-2 px-5 py-3 text-left text-[15px] font-medium transition-colors ${
+              errors.track
+                ? "border-red-400 bg-[#f4e6ff] text-[#0F172A]"
+                : "border-transparent bg-[#f4e6ff] text-[#0F172A] hover:bg-[#ead8ff]"
+            }`}
+          >
+            <span className={selectedOption ? "text-[#0F172A]" : "text-[#0F172A]"}>
+              {selectedOption ? selectedOption.label : "Select Learning Track"}
+            </span>
+
+            <ChevronDown
+              size={18}
+              className={`text-purple-400 transition-transform ${
+                open ? "rotate-180" : ""
+              }`}
+            />
+          </button>
+
+          {open && (
+            <div className="absolute left-0 right-0 z-50 mt-2 overflow-hidden rounded-[0.3rem] border border-purple-200 bg-white shadow-md">
+              {options.map((option) => {
+                const isSelected = selectedTrack === option.value;
+
+                return (
+                  <button
+                    key={option.value}
+                    type="button"
+                    onClick={() => onSelectTrack(option.value)}
+                    className={`block w-full px-5 py-3 text-left text-sm transition-colors ${
+                      isSelected
+                        ? "bg-purple-100 font-medium text-purple-700"
+                        : "text-[#0F172A] hover:bg-purple-50"
+                    }`}
+                  >
+                    {option.label}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
+          {errors.track && (
+            <p className="mt-1 px-1 text-xs text-red-500">
+              {errors.track.message}
+            </p>
+          )}
         </div>
 
-        {/* Submit */}
-        <div className='flex justify-end mt-2'>
+        <div className="mt-2 flex justify-end">
           <button
-            type='submit'
+            type="submit"
             disabled={isPending}
-            className='bg-[#8533cd] hover:bg-[#5B21B6] text-white font-bold text-lg px-12 py-3 cursor-pointer rounded-2xl w-full md:w-auto md:min-w-[320px] tracking-wide shadow-[0_4px_20px_rgba(109,40,217,0.25)] transition-colors'
+            className="w-full cursor-pointer rounded-2xl bg-[#8533cd] px-12 py-3 text-lg font-bold tracking-wide text-white shadow-[0_4px_20px_rgba(109,40,217,0.25)] transition-colors hover:bg-[#5B21B6] md:min-w-[320px] md:w-auto"
           >
             {isPending ? "Signing Up..." : "Get Started"}
           </button>

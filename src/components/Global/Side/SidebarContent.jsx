@@ -1,7 +1,12 @@
 import { Sparkles, Settings, LogOut } from "lucide-react";
 import { navItems } from "./SideNavItems";
+import { useNavigate } from "react-router-dom";
 import NavItem from "./NavItem";
+ const navigate = useNavigate()
 export default function SidebarContent({ pathname, onNavigate }) {
+  const handleLogout = () => {
+    navigate("/")
+  }
   return (
     <>
       <div className="flex h-[88px] w-full items-center justify-center bg-purple-600">
@@ -38,7 +43,7 @@ export default function SidebarContent({ pathname, onNavigate }) {
         </button>
 
         <button
-          onClick={() => onNavigate("/logout")}
+           onClick={handleLogout}
           className="text-gray-500 hover:text-black"
         >
           <LogOut size={20} />

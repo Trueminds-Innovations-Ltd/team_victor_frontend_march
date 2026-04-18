@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, X, Mail, Phone, Eye, EyeOff, Info, ChevronDown } from "lucide-react";
 import { useSignup } from "../../hooks/useSignup";
+import Logo from "../Global/Logo";
 
 const input = (hasError) =>
   `w-full bg-[#f4e6ff]  rounded-[0.3rem] px-5 py-3 pr-12 text-[15px] font-medium text-[#0F172A] placeholder:text-[#BCA6E2] focus:bg-white outline-none border-2 ${
@@ -67,7 +68,9 @@ export default function Signup() {
         >
           <ArrowLeft size={22} strokeWidth={2.5} />
         </button>
-        <span className='text-xl font-bold text-gray-900'>Logo</span>
+        <span className='text-xl font-bold text-gray-900'>
+          <Logo />
+        </span>
         <button
           type='button'
           onClick={() => navigate("/")}

@@ -1,12 +1,29 @@
+import { useState, useEffect } from "react";
+
 export const useUser = () => {
-  const token = localStorage.getItem("truemind_token");
-  const user = JSON.parse(localStorage.getItem("truemind_user") || "null");
-  const isAuthenticated = !!token;
-  console.log(user);
+  const [user, setUser] = useState(() => {
+    try {
+      const raw = localStorage.getItem("truemind_user");
+      return raw ? JSON.parse(raw) : null;
+    } catch {
+      return null;
+    }
+  });
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const raw = localStorage.getItem("truemind_user");
+      setUser(raw ? JSON.parse(raw) : null);
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, []);
 
   return {
-    token,
     user,
-    isAuthenticated,
+    setUser,
+    isAuthenticated: !!user,
   };
 };

@@ -18,7 +18,7 @@ const filterToSlug = (filter) => {
   return filter.toLowerCase().replace(/\s+/g, "-");
 };
 
-const MotionLink = motion(Link)
+const MotionLink = motion(Link);
 
 export default function CourseOverview() {
   const [searchParams, setSearchParams] = useSearchParams();

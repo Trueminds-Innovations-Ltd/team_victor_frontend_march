@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, Home } from "lucide-react";
@@ -31,7 +32,6 @@ function PageNotFound() {
           </motion.div>
         </motion.div>
 
-        {/* Card */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -62,7 +62,7 @@ function PageNotFound() {
             The page you're looking for doesn't exist or has been moved. Let's get you back on track.
           </p>
 
-          {/* actions */}
+          {/* buttons */}
           <div className='flex flex-col sm:flex-row items-center justify-center gap-3'>
             <motion.button
               whileHover={{ scale: 1.02 }}

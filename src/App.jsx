@@ -15,6 +15,8 @@ import LandingPage from "./pages/Landingpage/LandingPage";
 import Community from "./pages/Dashboard/Community";
 import { CommunityProvider } from "./contexts/CommunityContext";
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
+import SignupSuccess from "./pages/Auth/SignupSuccess";
+import ProtectedRoute from "./components/Global/ProtectedRoute";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,12 +29,18 @@ const queryClient = new QueryClient({
 
 function App() {
   return (
-    <AppProvider>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <AppProvider>
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<LandingPage />} /> {/* FIX */}
-            <Route element={<AppLayout />}>
+            <Route
+              element={
+                <ProtectedRoute>
+                  <AppLayout />
+                </ProtectedRoute>
+              }
+            >
               <Route path='dashboard' element={<Dashboard />} />
               <Route path='/courses' element={<Courses />} />
               <Route
@@ -51,6 +59,7 @@ function App() {
             </Route>
             <Route path='signin' element={<SigninPage />} />
             <Route path='signup' element={<SignupPage />} />
+            <Route path='signup/success' element={<SignupSuccess />} />
             <Route path='*' element={<PageNotFound />} />
           </Routes>
         </BrowserRouter>
@@ -64,8 +73,8 @@ function App() {
           draggable
           pauseOnHover
         />
-      </QueryClientProvider>
-    </AppProvider>
+      </AppProvider>
+    </QueryClientProvider>
   );
 }
 

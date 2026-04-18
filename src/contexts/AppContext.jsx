@@ -1,5 +1,4 @@
 import { createContext, useContext, useState } from "react";
-import { useUser } from "../hooks/useUser";
 
 // Global app state - easy to swap mock data with real API calls later
 const AppContext = createContext(null);
@@ -129,13 +128,24 @@ const mockHeroCourse = {
 export function AppProvider({ children }) {
   const [activeNav, setActiveNav] = useState("home");
   const [searchQuery, setSearchQuery] = useState("");
+  const [user, setUser] = useState(() => {
+    const raw = localStorage.getItem("truemind_user");
+    return raw ? JSON.parse(raw) : null;
+  });
 
-  const { user } = useUser();
-  console.log("User from useUser hook:", user);
+  // const { user } = useUser();
+  // console.log("User from useUser hook:", user);
+  // if (isLoading)
+  //   return (
+  //     <div className='h-screen flex items-center justify-center'>
+  //       <div className='w-6 h-6 border-2 border-[#8533cd] border-t-transparent rounded-full animate-spin' />
+  //     </div>
+  //   );
+
   const mockUserWithAPI = {
     ...mockUser,
-    name: user?.name?.split(" ")[0] || mockUser.name,
-    lastName: user?.name?.split(" ")[1] || mockUser.lastName,
+    name: user?.name?.split(" ")[0],
+    lastName: user?.name?.split(" ")[1],
     role: user?.role || mockUser.role,
     avatar: user?.avatar || mockUser.avatar,
   };
@@ -144,6 +154,7 @@ export function AppProvider({ children }) {
     <AppContext.Provider
       value={{
         user: mockUserWithAPI,
+        setUser,
         heroCourse: mockHeroCourse,
         continueWatching: mockContinueWatching,
         exploreCourses: mockExploreCourses,
@@ -160,6 +171,7 @@ export function AppProvider({ children }) {
 }
 
 // Custom hook for easy context access
+// eslint-disable-next-line react-refresh/only-export-components
 export function useApp() {
   const ctx = useContext(AppContext);
   if (!ctx) throw new Error("useApp must be used inside AppProvider");

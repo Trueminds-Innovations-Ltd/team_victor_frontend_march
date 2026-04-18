@@ -1,30 +1,30 @@
 import { useMutation } from "@tanstack/react-query";
-import { login } from "../services/authService";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useApp } from "../contexts/AppContext";
+import { login } from "../services/authService";
 
 export const useLogin = () => {
   const navigate = useNavigate();
+  const { setUser } = useApp();
+
   return useMutation({
     mutationFn: login,
 
     onSuccess: (data) => {
-      const token = data?.token || data?.access_token;
-      console.log("Received token:", token);
-
-      if (!token) {
-        toast.error("Invalid login response");
-        return;
+      // Seed the cache with the user returned from login
+      // so components get the user instantly without waiting for a refetch
+      if (data.user) {
+        setUser(data.user); // Update user in context
       }
 
-      localStorage.setItem("truemind_token", token);
-      localStorage.setItem("truemind_user", JSON.stringify(data.user || {}));
       toast.success("Login successful!");
       navigate("/dashboard");
     },
 
-    onError: () => {
-      toast.error("Login failed. Please try again.");
+    onError: (error) => {
+      const message = error?.response?.data?.message || "Login failed. Please try again.";
+      toast.error(message);
     },
   });
 };

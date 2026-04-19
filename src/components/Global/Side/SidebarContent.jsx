@@ -8,9 +8,9 @@ export default function SidebarContent({ pathname, onNavigate }) {
   return (
     <>
       <div className='flex h-[88px] w-full items-center justify-center bg-purple-600'>
-        <a href="dashboard" className='font-bold text-white'>
-          <img src="/images/logo.png" alt="logo" className="w-20 h-20 object-cover"/>
-        </a>
+        <span className='font-bold text-white'>
+          <Logo h={15} type={2} />
+        </span>
       </div>
       <nav className='flex flex-1 flex-col items-center gap-1 pt-4'>
         {navItems.map((item) => (

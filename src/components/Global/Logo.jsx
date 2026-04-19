@@ -1,5 +1,5 @@
-function Logo({ h = 20 }) {
-  return <img src='/images/logo.png' alt='TrueMind Logo' className={`h-${h} w-auto`} />;
+function Logo({ h = 12, type = 1 }) {
+  return <img src={`/images/logo-${type}.png`} alt='TrueMind Logo' className={`h-${h} w-auto object-cover`} />;
 }
 
 export default Logo;

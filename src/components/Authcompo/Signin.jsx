@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useLogin } from "../../hooks/useLogin";
 import Logo from "../Global/Logo";
+import Spinner from "../Global/Spinner";
 
 const input = (hasError) =>
   `w-full bg-[#f4e6ff]  rounded-[0.3rem] px-5 py-3 pr-12 text-[15px] font-medium text-[#0F172A] placeholder:text-[#BCA6E2] focus:bg-white outline-none border-2 ${
@@ -22,10 +23,12 @@ export default function Login() {
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
+    if (isPending) return <Spinner />;
     if (data.password.length < 8) {
       alert("Password must be at least 8 characters");
       return;
     }
+
     mutate(data);
   };
 

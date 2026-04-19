@@ -9,7 +9,7 @@ export default function SidebarContent({ pathname, onNavigate }) {
     <>
       <div className='flex h-[88px] w-full items-center justify-center bg-purple-600'>
         <span className='font-bold text-white'>
-          <Logo h={15} />
+          <Logo h={15} type={2} />
         </span>
       </div>
       <nav className='flex flex-1 flex-col items-center gap-1 pt-4'>

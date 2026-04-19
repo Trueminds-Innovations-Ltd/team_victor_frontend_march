@@ -45,14 +45,15 @@ export default function Topbar() {
   const notifications = currentUser?.notifications || 0;
 
   return (
-    <header className="sticky top-0 z-20 border-b border-gray-100 bg-[#F5F5F7] px-4 py-3 md:px-6">
+    <header className="z-20 bg-[#F5F5F7] px-2 pt-1 md:px-6 md:py-3">
       <div className="flex items-center justify-between gap-4">
-        <div className="w-full flex-1 rounded-[20px] bg-white p-1.5">
-          <div className="flex items-center gap-2 rounded-[16px] bg-[#F5F5F7] px-3 py-2">
+        {/* SEARCH */}
+        <div className="w-full flex-1 rounded-[14px] bg-white p-1 shadow-sm md:rounded-[20px] md:p-1.5">
+          <div className="flex items-center gap-2 rounded-[10px] bg-[#F5F5F7] mt-6 md:mt-0 px-2.5 py-2 md:rounded-[16px] md:px-3">
             <img
               src="/images/Search.png"
               alt="search"
-              className="h-5 w-5 object-contain opacity-70"
+              className="h-4 w-4 object-contain opacity-70 md:h-5 md:w-5"
             />
 
             <input
@@ -60,20 +61,21 @@ export default function Topbar() {
               placeholder="Search modules, courses, or documents..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-transparent text-sm text-gray-600 outline-none placeholder:text-gray-400"
+              className="w-full bg-transparent text-[10px] text-gray-600 outline-none placeholder:text-gray-400 md:text-sm"
             />
 
-            <button className="flex h-8 w-8 items-center justify-center rounded-full transition hover:bg-white">
+            <button className="flex h-6 w-6 items-center justify-center rounded-full transition hover:bg-white md:h-8 md:w-8">
               <img
                 src="/images/sl.png"
                 alt="filter"
-                className="h-5 w-5 object-contain"
+                className="h-3.5 w-3.5 object-contain md:h-5 md:w-5"
               />
             </button>
           </div>
         </div>
 
-        <div className="flex flex-shrink-0 items-center gap-3">
+        {/* DESKTOP ONLY */}
+        <div className="hidden flex-shrink-0 items-center gap-3 md:flex">
           <button className="relative rounded-full p-2 transition hover:bg-white">
             <img
               src="/images/nt.png"
@@ -153,7 +155,7 @@ export default function Topbar() {
                     </button>
 
                     <div className="flex items-center justify-between rounded-xl px-3 py-3 hover:bg-gray-50">
-                      <span> Dark Mode</span>
+                      <span>Dark Mode</span>
                       <div className="h-5 w-10 rounded-full bg-gray-200" />
                     </div>
 

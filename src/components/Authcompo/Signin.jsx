@@ -23,7 +23,6 @@ export default function Login() {
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    if (isPending) return <Spinner />;
     if (data.password.length < 8) {
       alert("Password must be at least 8 characters");
       return;
@@ -34,6 +33,7 @@ export default function Login() {
 
   return (
     <div className='min-h-screen bg-white px-8 md:px-14 py-7 max-w-4xl mx-auto'>
+      {isPending && <Spinner />}
       {/* Header */}
       <div className='flex items-center justify-between mb-10'>
         <button

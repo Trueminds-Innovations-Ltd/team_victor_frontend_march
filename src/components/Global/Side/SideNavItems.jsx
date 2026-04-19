@@ -1,9 +1,9 @@
 import { Home, Layers, Users, CheckSquare, MessageCircle } from "lucide-react";
 
 export const navItems = [
-  { id: "home", icon: Home, path: "/dashboard" },
-  { id: "courses", icon: Layers, path: "/courses" },
-  { id: "community", icon: Users, path: "/community" },
-  { id: "tasks", icon: CheckSquare, path: "/file" },
-  { id: "chat", icon: MessageCircle, path: "/message", badge: 3 },
+  { id: "home", img: "/images/nv9.png", path: "/dashboard" },
+  { id: "courses", img: "/images/nv8.png", path: "/courses" },
+  { id: "community", img: "/images/nv7.png", path: "/community" },
+  { id: "tasks", img: "/images/nv6.png", path: "/project" },
+  { id: "chat", img: "/images/nv5.png", path: "/message", badge: 3 },
 ];

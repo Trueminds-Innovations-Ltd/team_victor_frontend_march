@@ -17,6 +17,7 @@ import { CommunityProvider } from "./contexts/CommunityContext";
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
 import SignupSuccess from "./pages/Auth/SignupSuccess";
 import ProtectedRoute from "./components/Global/ProtectedRoute";
+import Project from "./pages/Dashboard/Project";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -54,7 +55,7 @@ function App() {
               <Route path='/courses/:id' element={<CourseDetails />} />
               {/* <Route path="/tasks" element={<Tasks />} /> */}
               <Route path='/message' element={<Message />} />
-              <Route path='/file' element={<File />} />
+              <Route path='/project' element={<Project/>} />
               <Route path='/settings' element={<SettingsPage />} />
             </Route>
             <Route path='signin' element={<SigninPage />} />

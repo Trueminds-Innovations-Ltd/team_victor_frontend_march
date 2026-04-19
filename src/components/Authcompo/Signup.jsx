@@ -107,6 +107,7 @@ export default function Signup() {
 
   return (
     <div className='mx-auto min-h-screen max-w-4xl bg-white px-8 py-7 md:px-14'>
+      {isPending && <Spinner />}
       <div className='mb-10 flex items-center justify-between'>
         <button
           type='button'

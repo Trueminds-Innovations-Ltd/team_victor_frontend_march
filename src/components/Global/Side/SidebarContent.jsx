@@ -1,6 +1,6 @@
 import { LogOut, Settings, Sparkles } from "lucide-react";
 import { useLogout } from "../../../hooks/useLogout";
-import Logo from "../Logo";
+import { Link } from "react-router-dom";
 import NavItem from "./NavItem";
 import { navItems } from "./SideNavItems";
 export default function SidebarContent({ pathname, onNavigate }) {
@@ -8,9 +8,9 @@ export default function SidebarContent({ pathname, onNavigate }) {
   return (
     <>
       <div className='flex h-[88px] w-full items-center justify-center bg-purple-600'>
-        <span className='font-bold text-white'>
-          <Logo h={15} type={2} />
-        </span>
+        <Link to="dashboard" className='font-bold text-white'>
+            <img src="/images/logo.png" alt="logo" className="w-20 h-20 object-cover"/>
+        </Link>
       </div>
       <nav className='flex flex-1 flex-col items-center gap-1 pt-4'>
         {navItems.map((item) => (

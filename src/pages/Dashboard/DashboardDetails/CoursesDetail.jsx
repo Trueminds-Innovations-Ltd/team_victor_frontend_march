@@ -22,20 +22,20 @@ export default function CoursesDetail() {
       title: "Module 1: Workflow & Precision",
       lessons: [
         {
-          id: 1,
+          id: "lesson-1",
           title: "Customizing panels for speed",
           duration: "5:00",
           locked: false,
         },
         {
-          id: 2,
+          id: "lesson-2",
           title: "Creating efficient artboard layouts",
-          duration: "",
+          duration: "8:00",
           upNext: "Up Next 8:00",
           locked: true,
         },
         {
-          id: 3,
+          id: "lesson-3",
           title: "Saving workspace presets",
           duration: "15:20",
           locked: true,
@@ -71,6 +71,7 @@ export default function CoursesDetail() {
     moduleIndex: 0,
     lessonIndex: 0,
   });
+  const [completedLessonIds, setCompletedLessonIds] = useState([]);
 
   if (!course) {
     return <p className="p-6">Course not found</p>;
@@ -79,32 +80,57 @@ export default function CoursesDetail() {
   const currentModule = staticModules[activeLesson.moduleIndex];
   const currentLesson = currentModule?.lessons?.[activeLesson.lessonIndex];
 
-  const totalLessons = staticModules.reduce(
-    (sum, module) => sum + module.lessons.length,
-    0
-  );
+  const allLessons = staticModules.flatMap((module) => module.lessons || []);
+  const totalLessons = allLessons.length;
+  const completedLessons = completedLessonIds.length;
+  const progress =
+    totalLessons > 0 ? Math.round((completedLessons / totalLessons) * 100) : 0;
 
-  const completedLessons = 0;
-  const progress = 0;
+  const handleSelectLesson = (moduleIndex, lessonIndex) => {
+    const lesson = staticModules[moduleIndex]?.lessons?.[lessonIndex];
+    if (!lesson || lesson.locked) return;
+
+    setActiveLesson({ moduleIndex, lessonIndex });
+
+    if (!openModules.includes(moduleIndex)) {
+      setOpenModules([moduleIndex]);
+    }
+  };
+
+  const markCurrentLessonComplete = () => {
+    if (!currentLesson) return;
+
+    setCompletedLessonIds((prev) =>
+      prev.includes(currentLesson.id) ? prev : [...prev, currentLesson.id]
+    );
+  };
 
   const goToNextLesson = () => {
-    const { moduleIndex, lessonIndex } = activeLesson;
-    const currentLessons = staticModules[moduleIndex]?.lessons || [];
+    for (
+      let moduleIndex = activeLesson.moduleIndex;
+      moduleIndex < staticModules.length;
+      moduleIndex++
+    ) {
+      const lessons = staticModules[moduleIndex]?.lessons || [];
 
-    if (lessonIndex < currentLessons.length - 1) {
-      setActiveLesson({
-        moduleIndex,
-        lessonIndex: lessonIndex + 1,
-      });
-      return;
-    }
+      let startLessonIndex = 0;
+      if (moduleIndex === activeLesson.moduleIndex) {
+        startLessonIndex = activeLesson.lessonIndex + 1;
+      }
 
-    if (moduleIndex < staticModules.length - 1) {
-      setActiveLesson({
-        moduleIndex: moduleIndex + 1,
-        lessonIndex: 0,
-      });
-      setOpenModules([moduleIndex + 1]);
+      for (
+        let lessonIndex = startLessonIndex;
+        lessonIndex < lessons.length;
+        lessonIndex++
+      ) {
+        const lesson = lessons[lessonIndex];
+
+        if (!lesson.locked) {
+          setActiveLesson({ moduleIndex, lessonIndex });
+          setOpenModules([moduleIndex]);
+          return;
+        }
+      }
     }
   };
 
@@ -112,6 +138,7 @@ export default function CoursesDetail() {
     <div className="min-h-screen bg-[#f5f5f7]">
       <div className="mx-auto max-w-7xl space-y-6">
         <CourseHero course={course} />
+
         <div className="grid gap-6 xl:grid-cols-[1.5fr_0.72fr]">
           <div className="space-y-6">
             <CoursePlayer
@@ -121,6 +148,7 @@ export default function CoursesDetail() {
               completedLessons={completedLessons}
               totalLessons={totalLessons}
               goToNextLesson={goToNextLesson}
+              onMarkComplete={markCurrentLessonComplete}
             />
 
             <CourseModules
@@ -128,12 +156,13 @@ export default function CoursesDetail() {
               openModules={openModules}
               setOpenModules={setOpenModules}
               activeLesson={activeLesson}
-              setActiveLesson={setActiveLesson}
+              onSelectLesson={handleSelectLesson}
+              completedLessonIds={completedLessonIds}
             />
           </div>
 
           <div className="space-y-4">
-            <CourseAI/>
+            <CourseAI />
             <CourseResources />
             <CourseHelpCard />
           </div>

@@ -19,11 +19,11 @@ export default function NavItem({ item, isActive, onClick }) {
 
       <img src={item.img} alt="item img" className="w-5 h-5 object-contain" />
 
-      {item.badge && (
+      {/* {item.badge && (
         <span className="absolute right-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
           {item.badge}
         </span>
-      )}
+      )} */}
     </motion.button>
   );
 }

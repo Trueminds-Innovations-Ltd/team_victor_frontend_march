@@ -55,15 +55,9 @@ export default function MobileSidebarContent({ pathname, onNavigate, onClose }) 
               }`}
             >
               <div className="flex items-center gap-4">
-                <img src={Images} alt="img" className="w-4 h-4 object-contain" />
+                <img src={Images} alt="img" className="w-5 h-5 object-cover" />
                 <span className="text-[17px] font-medium">{item.label}</span>
               </div>
-
-              {item.badge && (
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-red-500 text-sm font-bold text-white">
-                  {item.badge}
-                </span>
-              )}
             </button>
           );
         })}

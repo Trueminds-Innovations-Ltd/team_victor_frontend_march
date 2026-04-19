@@ -56,7 +56,7 @@ export default function MobileTopbar({ onOpen }) {
     <div className="relative lg:hidden" ref={menuRef}>
       {/* HEADER */}
       <div className="bg-gradient-to-r from-[#8B3DFF] to-[#9333EA] px-4 pt-3 pb-4">
-        {/* TOP ROW */}
+
         <div className="flex items-center justify-between">
           <button
             onClick={onOpen}
@@ -101,35 +101,6 @@ export default function MobileTopbar({ onOpen }) {
             </button>
           </div>
         </div>
-
-        {/* SEARCH BAR */}
-        {/* <div className="mt-4">
-          <div className="rounded-2xl bg-white/15 p-[1px]">
-            <div className="flex items-center gap-3 rounded-2xl bg-[#f3f1f5] px-4 py-3 shadow-sm">
-              <img
-                src="/images/Search.png"
-                alt="search"
-                className="h-5 w-5 object-contain opacity-70"
-              />
-
-              <input
-                type="text"
-                placeholder="Search modules, courses, or documents..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-transparent text-sm text-gray-700 outline-none placeholder:text-gray-500"
-              />
-
-              <button className="flex h-8 w-8 items-center justify-center rounded-full transition active:scale-95">
-                <img
-                  src="/images/sl.png"
-                  alt="filter"
-                  className="h-5 w-5 object-contain opacity-80"
-                />
-              </button>
-            </div>
-          </div>
-        </div> */}
       </div>
 
       {/* MOBILE PROFILE DROPDOWN */}
@@ -140,7 +111,7 @@ export default function MobileTopbar({ onOpen }) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.98 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="absolute right-4 top-[72px] z-[100] w-[300px] overflow-hidden rounded-3xl border border-gray-200/80 bg-white shadow-[0_20px_60px_rgba(0,0,0,0.12)]"
+            className="absolute right-4 top-[73px] z-[100] w-[300px] overflow-hidden rounded-3xl border border-gray-200/80 bg-white shadow-[0_20px_60px_rgba(0,0,0,0.12)]"
           >
             <div className="relative border-b border-gray-100 bg-gradient-to-br from-purple-50 via-white to-white p-5">
               <button

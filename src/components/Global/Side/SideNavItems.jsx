@@ -5,5 +5,5 @@ export const navItems = [
   { id: "courses", img: "/images/nv8.png", path: "/courses" },
   { id: "community", img: "/images/nv7.png", path: "/community" },
   { id: "tasks", img: "/images/nv6.png", path: "/project" },
-  { id: "chat", img: "/images/nv5.png", path: "/message", badge: 3 },
+  { id: "chat", img: "/images/nvv.png", path: "/message", badge: 3 },
 ];

@@ -51,7 +51,7 @@ export default function CourseHero({ course }) {
           </div>
         </div>
 
-        <div className="flex items-start justify-end pt-10 lg:pt-4">
+        <div className="hidden md:flex md:items-start md:justify-end md:pt-10 lg:pt-4">
           <div className="relative w-full max-w-[470px] overflow-hidden">
             <img
               src={course.image}

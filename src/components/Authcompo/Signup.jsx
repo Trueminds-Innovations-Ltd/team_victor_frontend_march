@@ -15,8 +15,7 @@ import { useSignup } from "../../hooks/useSignup";
 import Logo from "../Global/Logo";
 
 const input = (hasError) =>
-  `w-full bg-[#f4e6ff] rounded-[0.3rem] px-5 py-3 pr-12 text-[15px] font-medium text-[#0F172A] placeholder:text-[#BCA6E2] outline-none border-2 transition-colors ${
-    hasError ? "border-red-400" : "border-transparent focus:border-purple-400"
+  `w-full bg-[#f4e6ff] rounded-[0.3rem] px-5 py-3 pr-12 text-[15px] font-medium text-[#0F172A] placeholder:text-[#BCA6E2] outline-none border-2 transition-colors ${hasError ? "border-red-400" : "border-transparent focus:border-purple-400"
   }`;
 
 export default function Signup() {
@@ -126,7 +125,8 @@ export default function Signup() {
           <ArrowLeft size={22} strokeWidth={2.5} />
         </button>
         <span className="text-xl font-bold text-gray-900">
-          <Logo />
+          {/* <Logo /> */}
+          <img src="/images/lg2.png" alt="logo" className="w-20 h-20 object-cover" />
         </span>
         <button
           type="button"
@@ -303,11 +303,10 @@ export default function Signup() {
             type="button"
             disabled={isPending}
             onClick={() => setOpen((prev) => !prev)}
-            className={`flex w-full items-center justify-between rounded-[0.3rem] border-2 px-5 py-3 text-left text-[15px] font-medium transition-colors ${
-              errors.track
+            className={`flex w-full items-center justify-between rounded-[0.3rem] border-2 px-5 py-3 text-left text-[15px] font-medium transition-colors ${errors.track
                 ? "border-red-400 bg-[#f4e6ff] text-[#0F172A]"
                 : "border-transparent bg-[#f4e6ff] text-[#0F172A] hover:bg-[#ead8ff]"
-            }`}
+              }`}
           >
             <span
               className={selectedOption ? "text-[#0F172A]" : "text-[#0F172A]"}
@@ -331,11 +330,10 @@ export default function Signup() {
                     key={option.value}
                     type="button"
                     onClick={() => onSelectTrack(option.value)}
-                    className={`block w-full px-5 py-3 text-left text-sm transition-colors ${
-                      isSelected
+                    className={`block w-full px-5 py-3 text-left text-sm transition-colors ${isSelected
                         ? "bg-purple-100 font-medium text-purple-700"
                         : "text-[#0F172A] hover:bg-purple-50"
-                    }`}
+                      }`}
                   >
                     {option.label}
                   </button>

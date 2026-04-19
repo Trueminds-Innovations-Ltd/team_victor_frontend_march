@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
 
 export default function NavItem({ item, isActive, onClick }) {
-  const Icon = item.icon;
-
+  // const Images = item.img;
   return (
     <motion.button
       onClick={onClick}
@@ -18,7 +17,7 @@ export default function NavItem({ item, isActive, onClick }) {
         <div className="absolute left-0 top-1/2 h-6 w-1 -translate-y-1/2 rounded-r bg-purple-600" />
       )}
 
-      <Icon size={20} />
+      <img src={item.img} alt="item img" className="w-5 h-5 object-contain" />
 
       {item.badge && (
         <span className="absolute right-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">

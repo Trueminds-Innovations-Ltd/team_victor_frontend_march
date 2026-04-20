@@ -45,7 +45,11 @@ export default function Login() {
           <ArrowLeft size={22} strokeWidth={2.5} />
         </button>
 
-        <img src="/images/lg2.png" alt="logo" className="w-20 h-20 object-cover"/>
+        <img
+          src="/images/lg2.png"
+          alt="logo"
+          className="w-20 h-20 object-cover"
+        />
 
         <button
           type="button"

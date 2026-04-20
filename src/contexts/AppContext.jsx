@@ -133,14 +133,6 @@ export function AppProvider({ children }) {
     return raw ? JSON.parse(raw) : null;
   });
 
-  // const { user } = useUser();
-  // console.log("User from useUser hook:", user);
-  // if (isLoading)
-  //   return (
-  //     <div className='h-screen flex items-center justify-center'>
-  //       <div className='w-6 h-6 border-2 border-[#8533cd] border-t-transparent rounded-full animate-spin' />
-  //     </div>
-  //   );
 
   const mockUserWithAPI = {
     ...mockUser,

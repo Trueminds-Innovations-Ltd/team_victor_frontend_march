@@ -1,13 +1,6 @@
 import { useMemo, useRef, useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import {
-  Menu,
-  LogOut,
-  Settings,
-  User,
-  ChevronRight,
-  X,
-} from "lucide-react";
+import { Menu, LogOut, Settings, User, X } from "lucide-react";
 import { useLogout } from "../../../hooks/useLogout";
 import { useApp } from "../../../contexts/AppContext";
 
@@ -56,7 +49,6 @@ export default function MobileTopbar({ onOpen }) {
     <div className="relative lg:hidden" ref={menuRef}>
       {/* HEADER */}
       <div className="bg-gradient-to-r from-[#8B3DFF] to-[#9333EA] px-4 pt-3 pb-4">
-
         <div className="flex items-center justify-between">
           <button
             onClick={onOpen}
@@ -65,13 +57,11 @@ export default function MobileTopbar({ onOpen }) {
             <Menu size={28} />
           </button>
 
-          <div className="flex items-center justify-center">
-            <img
-              src="/images/logo.png"
-              alt="logo"
-              className="h-12 w-auto object-contain"
-            />
-          </div>
+          <img
+            src="/images/logo.png"
+            alt="logo"
+            className="h-12 w-auto object-contain"
+          />
 
           <div className="flex items-center gap-2">
             {/* NOTIFICATION */}
@@ -94,7 +84,7 @@ export default function MobileTopbar({ onOpen }) {
               onClick={() => setOpenMenu((prev) => !prev)}
               className="flex h-11 w-11 items-center justify-center overflow-hidden rounded-full ring-2 ring-white/20 transition active:scale-95"
             >
-              <div className="flex h-full w-full items-center justify-center rounded-full bg-gradient-to-br from-purple-300 to-purple-600 text-sm font-semibold text-white">
+              <div className="flex h-full w-full items-center justify-center rounded-full bg-gradient-to-br from-[#a855f7] to-[#7c3aed] text-sm font-semibold text-white">
                 {firstNameInitial}
                 {lastNameInitial}
               </div>
@@ -103,17 +93,18 @@ export default function MobileTopbar({ onOpen }) {
         </div>
       </div>
 
-      {/* MOBILE PROFILE DROPDOWN */}
+      {/* DROPDOWN */}
       <AnimatePresence>
         {openMenu && (
           <motion.div
             initial={{ opacity: 0, y: 12, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.98 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-            className="absolute right-4 top-[73px] z-[100] w-[300px] overflow-hidden rounded-3xl border border-gray-200/80 bg-white shadow-[0_20px_60px_rgba(0,0,0,0.12)]"
+            transition={{ duration: 0.2 }}
+            className="absolute right-4 top-[73px] z-[100] w-[320px] overflow-hidden rounded-3xl border border-[#ede9fe] bg-white shadow-[0_20px_60px_rgba(17,24,39,0.12)]"
           >
-            <div className="relative border-b border-gray-100 bg-gradient-to-br from-purple-50 via-white to-white p-5">
+            {/* PROFILE HEADER */}
+            <div className="relative border-b border-[#f1f5f9] bg-gradient-to-r from-[#faf5ff] to-white p-5">
               <button
                 onClick={() => setOpenMenu(false)}
                 className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full text-gray-400 transition hover:bg-black/5 hover:text-gray-700"
@@ -122,7 +113,7 @@ export default function MobileTopbar({ onOpen }) {
               </button>
 
               <div className="flex items-start gap-4 pr-8">
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500 to-violet-600 text-base font-semibold tracking-wide text-white shadow-md">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#a855f7] to-[#7c3aed] text-base font-semibold text-white shadow-md">
                   {firstNameInitial}
                   {lastNameInitial}
                 </div>
@@ -133,59 +124,50 @@ export default function MobileTopbar({ onOpen }) {
                   </p>
                   <p className="truncate text-sm text-gray-500">{email}</p>
 
-                  <span className="mt-2 inline-flex rounded-full bg-purple-100 px-2.5 py-1 text-xs font-medium capitalize text-purple-700">
+                  <span className="mt-2 inline-flex rounded-full bg-[#f3e8ff] px-2.5 py-1 text-xs font-medium capitalize text-[#8533cd]">
                     {track}
                   </span>
-
-                  <button className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-purple-600 transition hover:text-purple-700">
-                    View Profile
-                    <ChevronRight size={15} />
-                  </button>
                 </div>
               </div>
             </div>
 
+            {/* MENU ITEMS */}
             <div className="p-2">
-              <button className="group flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-left transition hover:bg-gray-50">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100 text-gray-600 transition group-hover:bg-purple-100 group-hover:text-purple-600">
-                  <User size={18} />
-                </div>
-                <div className="flex-1">
-                  <p className="text-sm font-medium text-gray-800">My Account</p>
-                  <p className="text-xs text-gray-500">
-                    Manage your personal profile
-                  </p>
-                </div>
-              </button>
-
-              <button className="group flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-left transition hover:bg-gray-50">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100 text-gray-600 transition group-hover:bg-purple-100 group-hover:text-purple-600">
-                  <Settings size={18} />
-                </div>
-                <div className="flex-1">
-                  <p className="text-sm font-medium text-gray-800">
-                    Account Settings
-                  </p>
-                  <p className="text-xs text-gray-500">
-                    Preferences and security
-                  </p>
+              <button className="flex w-full items-center justify-between rounded-2xl px-3 py-3 transition hover:bg-[#f9f5ff]">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#f3e8ff] text-[#8533cd]">
+                    <User size={16} />
+                  </div>
+                  <span className="text-sm font-medium text-gray-700">
+                    My Account
+                  </span>
                 </div>
               </button>
 
-              <div className="my-2 border-t border-gray-100" />
+              <button className="flex w-full items-center justify-between rounded-2xl px-3 py-3 transition hover:bg-[#f9f5ff]">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#f3e8ff] text-[#8533cd]">
+                    <Settings size={16} />
+                  </div>
+                  <span className="text-sm font-medium text-gray-700">
+                    Settings
+                  </span>
+                </div>
+              </button>
+
+              <div className="my-2 border-t border-[#f1f5f9]" />
 
               <button
                 onClick={handleLogout}
-                className="group flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-left transition hover:bg-red-50"
+                className="flex w-full items-center justify-between rounded-2xl px-3 py-3 transition hover:bg-red-50"
               >
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-red-50 text-red-500 transition group-hover:bg-red-100">
-                  <LogOut size={18} />
-                </div>
-                <div className="flex-1">
-                  <p className="text-sm font-medium text-red-600">Logout</p>
-                  <p className="text-xs text-red-400">
-                    Sign out of your account
-                  </p>
+                <div className="flex items-center gap-3">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-red-50 text-red-500">
+                    <LogOut size={16} />
+                  </div>
+                  <span className="text-sm font-medium text-red-500">
+                    Logout
+                  </span>
                 </div>
               </button>
             </div>

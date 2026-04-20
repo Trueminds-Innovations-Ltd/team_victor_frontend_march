@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useApp } from "../../contexts/AppContext";
 import { useLogout } from "../../hooks/useLogout";
-import { LogOut, Settings, User, ChevronRight, X } from "lucide-react";
+import { LogOut, Settings, User } from "lucide-react";
 
 export default function Topbar() {
   const { searchQuery, setSearchQuery } = useApp();
@@ -20,7 +20,6 @@ export default function Topbar() {
 
   const currentUser = storedUser || {};
 
-  // ✅ FIXED (no crash)
   const fullName = currentUser?.name ?? "";
   const nameParts = fullName.split(" ");
   const firstNameInitial = nameParts[0]?.[0] || "";
@@ -49,7 +48,6 @@ export default function Topbar() {
   return (
     <header className="z-20 bg-[#F5F5F7] px-2 py-2 md:px-6 md:py-3">
       <div className="flex items-center justify-between gap-4">
-        {/* SEARCH */}
         <div className="w-full flex-1 rounded-[14px] bg-white p-1 shadow-sm md:rounded-[20px] md:p-1.5">
           <div className="flex items-center gap-2 rounded-[10px] bg-[#F5F5F7] px-2.5 py-2 md:rounded-[16px] md:px-3">
             <img
@@ -76,7 +74,6 @@ export default function Topbar() {
           </div>
         </div>
 
-        {/* DESKTOP */}
         <div className="hidden items-center gap-3 md:flex">
           <button className="relative rounded-full p-2 transition hover:bg-white">
             <img src="/images/nt.png" alt="notification" className="h-5 w-5" />
@@ -88,18 +85,21 @@ export default function Topbar() {
             )}
           </button>
 
-          {/* USER MENU */}
           <div className="relative" ref={menuRef}>
             <button
-              onClick={() => setOpenMenu(!openMenu)}
-              className="flex items-center gap-2 rounded-full px-2 py-1 transition hover:bg-white"
+              onClick={() => setOpenMenu((prev) => !prev)}
+              className={`flex items-center gap-2 rounded-full px-2 py-1.5 transition-all ${
+                openMenu
+                  ? "bg-white shadow-sm ring-1 ring-[#8533cd]/15"
+                  : "hover:bg-white"
+              }`}
             >
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-purple-400 to-purple-600 text-sm font-semibold text-white">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#a855f7] to-[#7c3aed] text-sm font-semibold text-white shadow-md">
                 {firstNameInitial}
                 {lastNameInitial}
               </div>
 
-              <div className="hidden flex-col md:flex leading-tight">
+              <div className="hidden flex-col leading-tight md:flex">
                 <span className="text-xs font-semibold text-gray-800">
                   {fullName || "User"}
                 </span>
@@ -108,42 +108,78 @@ export default function Topbar() {
                 </span>
               </div>
 
-              <span className="hidden text-sm text-gray-500 md:block">⌄</span>
+              <span
+                className={`hidden text-sm text-gray-500 transition-transform md:block ${
+                  openMenu ? "rotate-180" : ""
+                }`}
+              >
+                ⌄
+              </span>
             </button>
 
             <AnimatePresence>
               {openMenu && (
                 <motion.div
-                  initial={{ opacity: 0, y: 12, scale: 0.96 }}
+                  initial={{ opacity: 0, y: 12, scale: 0.97 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: 10, scale: 0.98 }}
+                  exit={{ opacity: 0, y: 8, scale: 0.98 }}
                   transition={{ duration: 0.2 }}
-                  className="absolute right-0 top-full z-50 mt-3 w-[300px] rounded-2xl border bg-white shadow-xl"
+                  className="absolute right-0 top-full z-50 mt-3 w-[320px] overflow-hidden rounded-3xl border border-[#ede9fe] bg-white shadow-[0_20px_50px_rgba(17,24,39,0.12)]"
                 >
-                  <div className="p-4 border-b">
-                    <p className="font-semibold text-sm text-gray-800">
-                      {fullName || "User"}
-                    </p>
-                    <p className="text-xs text-gray-500">{email}</p>
+                  <div className="border-b border-[#f1f5f9] bg-gradient-to-r from-[#faf5ff] to-white p-4">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-[#a855f7] to-[#7c3aed] text-sm font-semibold text-white">
+                        {firstNameInitial}
+                        {lastNameInitial}
+                      </div>
+
+                      <div className="min-w-0">
+                        <p className="truncate text-sm font-semibold text-gray-800">
+                          {fullName || "User"}
+                        </p>
+                        <p className="truncate text-xs text-gray-500">{email}</p>
+                        <p className="mt-1 text-[11px] font-medium capitalize text-[#8533cd]">
+                          {track}
+                        </p>
+                      </div>
+                    </div>
                   </div>
 
                   <div className="p-2">
-                    <button className="flex w-full items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50">
-                      <User size={16} />
-                      <span className="text-sm">My Account</span>
+                    <button className="flex w-full items-center justify-between rounded-2xl px-3 py-3 text-left transition hover:bg-[#f9f5ff]">
+                      <div className="flex items-center gap-3">
+                        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#f3e8ff] text-[#8533cd]">
+                          <User size={16} />
+                        </div>
+                        <span className="text-sm font-medium text-gray-700">
+                          My Account
+                        </span>
+                      </div>
                     </button>
 
-                    <button className="flex w-full items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50">
-                      <Settings size={16} />
-                      <span className="text-sm">Settings</span>
+                    <button className="flex w-full items-center justify-between rounded-2xl px-3 py-3 text-left transition hover:bg-[#f9f5ff]">
+                      <div className="flex items-center gap-3">
+                        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#f3e8ff] text-[#8533cd]">
+                          <Settings size={16} />
+                        </div>
+                        <span className="text-sm font-medium text-gray-700">
+                          Settings
+                        </span>
+                      </div>
                     </button>
 
                     <button
                       onClick={handleLogout}
-                      className="flex w-full items-center gap-3 px-3 py-2 rounded-lg hover:bg-red-50 text-red-500"
+                      className="flex w-full items-center justify-between rounded-2xl px-3 py-3 text-left transition hover:bg-red-50"
                     >
-                      <LogOut size={16} />
-                      <span className="text-sm">Logout</span>
+                      <div className="flex items-center gap-3">
+                        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-red-50 text-red-500">
+                          <LogOut size={16} />
+                        </div>
+                        <span className="text-sm font-medium text-red-500">
+                          Logout
+                        </span>
+                      </div>
                     </button>
                   </div>
                 </motion.div>

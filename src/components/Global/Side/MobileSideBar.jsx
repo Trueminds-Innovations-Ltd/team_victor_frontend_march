@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import MobileSidebarContent from "./MobileSidebarContent";
+import MobileSidebarContent from "./MobileSideBarContent";
 
 export default function MobileSidebar({
   open,

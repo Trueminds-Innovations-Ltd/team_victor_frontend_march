@@ -10,7 +10,6 @@ import CourseAI from "../../../components/Courses/CoursesDetailCom/CousesAi";
 
 export default function CoursesDetail() {
   const { id } = useParams();
-
   const course = useMemo(
     () => coursesData.find((item) => String(item.id) === String(id)),
     [id]
